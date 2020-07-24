@@ -3,3 +3,5 @@ node_modules
 *.lock
 *.log
 *.txt
+uploads/*
+!uploads/.getkeep
