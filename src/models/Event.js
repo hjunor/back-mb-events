@@ -4,10 +4,10 @@ const EventSchema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: uuid.v4()
+      default: true,
     },
     file: {
-      type: String
+      type: String,
     },
     title: {
       type: String,
