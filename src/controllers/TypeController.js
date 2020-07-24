@@ -6,13 +6,13 @@ class TypesController {
 
     const user = await UserShema.findById(id)
     if (!user || user.admin === false) {
-      return response.sendStatus(401).json({ error: 'no authorizade' });
+      return response.status(400).json({ error: 'no authorizade' });
     }
 
     const type = await TypesShema.create({
       title
     }).catch((error) => {
-      return response.sendStatus(401).json({ error: 'no authorizade' });
+      return response.status(401).json({ error: 'no authorizade' });
     })
 
     return response.json(type);
