@@ -1,5 +1,5 @@
 require('dotenv');
-const UserShema = require('../models/UserShema');
+const UserShema = require('../models/User');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
@@ -21,7 +21,7 @@ class AuthController {
       return response.status(401);
     }
 
-    const token = JWT.sign({ id: user.id }, process.env.TOKEN, {
+    const token = JWT.sign({ id: user.id }, process.env.SECRET, {
       expiresIn: '1d',
     });
 
@@ -30,6 +30,7 @@ class AuthController {
     response.json({
       id: user.id,
       email: user.email,
+      admin: user.admin,
       token,
     });
   }

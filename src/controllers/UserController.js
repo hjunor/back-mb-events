@@ -1,5 +1,4 @@
 const UserShema = require('../models/User');
-const uuid = require('uuid')
 
 class UsersController {
   async store(request, response, next) {
@@ -23,7 +22,7 @@ class UsersController {
     const result = validateEmail(email);
 
     if (!result) {
-      return response.json({ user: 'Email invalido' });
+      return response.json({ error: 'Email invalid' });
     }
 
     UserShema.find({
