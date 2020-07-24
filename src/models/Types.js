@@ -1,17 +1,19 @@
 const mongoose = require('mongoose');
-
+const uuid = require('uuid');
 const TypesSchema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: true,
+      default: uuid.v4(),
     },
     title: {
-      required: true,
       type: String,
+      required: true,
+      unique: true,
     }
   },
   { timestamps: false }
 );
+
 
 module.exports = mongoose.model('Types', TypesSchema);
