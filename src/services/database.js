@@ -5,7 +5,8 @@ const URL = `mongodb://${process.env.USERS}:${process.env.PASSWORD}@localhost:27
 const option = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 };
 
 mongoose.connect(URL, option, (erro) => {
