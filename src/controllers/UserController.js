@@ -1,11 +1,11 @@
-const UserShema = require('../models/User');
-
+const UserShema = require('../models/User')
+const bcrypt = require('bcrypt')
 class UsersController {
-  async store(request, response, next) {
-    const usersDb = await UserShema.find();
+  async index(request, response) {
+    const usersDb = await UserShema.find()
 
     const users = usersDb.map((user) => {
-      return { id: user._id, name: user.name };
+      return { id: user._id, name: user.name }
     });
 
     return response.json(users);
@@ -35,16 +35,49 @@ class UsersController {
           password,
           admin,
         });
-
-        return response.json({ message: 'Usuario Cadastrado com sucesso' });
+        return response.json({ id: newUser.id, email: newUser.email, admin: newUser.admin });
       })
       .catch((error) => {
         return response.json({
-          message: 'Usuario Exixtente na Base de dados',
-          newUser
+          message: 'Usuario Exixtente na Base de dados'
         });
       });
   }
+
+  async delete(request, response) {
+    const { id } = request.params
+    const user = await UserShema.findByIdAndDelete({
+      _id: id
+    })
+    response.json(user)
+
+  }
+
+  async update(request, response) {
+    const { name, email, password } = request.body;
+    const { id } = request.params;
+
+    function validateEmail(email) {
+      const regex = /\S+@\S+\.\S+/;
+      return regex.test(String(email).toLowerCase());
+    }
+
+    const result = validateEmail(email);
+
+    if (!result) {
+      return response.json({ error: 'Email invalid' });
+    }
+    const hash = await bcrypt.hash(password, 10);
+
+    const newUpdate = await UserShema.findByIdAndUpdate(id, {
+      name,
+      email,
+      password: hash,
+    }, { new: true });
+    return response.json(newUpdate);
+
+
+  }
 }
 
-module.exports = new UsersController();
+module.exports = new UsersController()
