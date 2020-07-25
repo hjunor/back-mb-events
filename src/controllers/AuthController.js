@@ -25,12 +25,12 @@ class AuthController {
       expiresIn: '1d',
     });
 
-    delete user.password;
 
     response.json({
       id: user.id,
       email: user.email,
       admin: user.admin,
+      name: user.name,
       token,
     });
   }
