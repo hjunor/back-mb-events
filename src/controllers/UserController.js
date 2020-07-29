@@ -1,14 +1,14 @@
-const UserShema = require('../models/User')
+const UserSchema = require('../models/User')
 const bcrypt = require('bcrypt')
 class UsersController {
-  async index(request, response) {
-    const usersDb = await UserShema.find()
 
-    const users = usersDb.map((user) => {
+  async index(request, response) {
+    const users = await UserSchema.find()
+    const user = users.map((user) => {
       return { id: user._id, name: user.name }
     });
 
-    return response.json(users);
+    return response.json(user);
   }
 
   async create(request, response) {
@@ -25,11 +25,11 @@ class UsersController {
       return response.json({ error: 'Email invalid' });
     }
 
-    UserShema.find({
+    UserSchema.find({
       email: { $in: [email.toLowerCase()] },
     })
       .then(async (user) => {
-        const newUser = await UserShema.create({
+        const newUser = await UserSchema.create({
           name,
           email,
           password,
@@ -46,11 +46,10 @@ class UsersController {
 
   async delete(request, response) {
     const { id } = request.params
-    const user = await UserShema.findByIdAndDelete({
+    const user = await UserSchema.findByIdAndDelete({
       _id: id
     })
     response.json(user)
-
   }
 
   async update(request, response) {
@@ -69,7 +68,7 @@ class UsersController {
     }
     const hash = await bcrypt.hash(password, 10);
 
-    const newUpdate = await UserShema.findByIdAndUpdate(id, {
+    const newUpdate = await UserSchema.findByIdAndUpdate(id, {
       name,
       email,
       password: hash,

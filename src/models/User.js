@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 
-const userShema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     _id: {
       type: String,
@@ -41,6 +41,6 @@ userShema.pre('save', async function (next) {
   next();
 });
 
-module.exports = mongoose.model('Users', userShema);
+module.exports = mongoose.model('Users', userSchema);
 
 
