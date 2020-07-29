@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const uuid = require('uuid')
-const CategoryShema = new mongoose.Schema(
+const CategorySchema = new mongoose.Schema(
   {
     _id: {
       type: String,
@@ -15,4 +15,4 @@ const CategoryShema = new mongoose.Schema(
   { timestamps: false }
 );
 
-module.exports = mongoose.model('Category', CategoryShema);
+module.exports = mongoose.model('Category', CategorySchema);

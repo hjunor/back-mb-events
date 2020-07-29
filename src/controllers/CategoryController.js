@@ -1,4 +1,4 @@
-const CategoryShemma = require('../models/Category');
+const CategorySchemma = require('../models/Category');
 const UserShema = require('../models/User')
 class CategoryController {
   async store(request, response) {
@@ -9,7 +9,7 @@ class CategoryController {
       return response.sendStatus(401).json({ error: 'no authorizade' });
     }
 
-    const category = await CategoryShemma.create({
+    const category = await CategorySchemma.create({
       title
     }).catch((error) => {
       return response.sendStatus(401).json({ error: 'no authorizade' });
