@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "container": " docker container start 6e34ce3a48f3",
     "dev": "nodemon src/index.js"
   },
   "repository": {
