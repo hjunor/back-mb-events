@@ -1,5 +1,5 @@
 require('dotenv');
-const UserShema = require('../models/User');
+const UserSchema = require('../models/User');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
@@ -7,7 +7,7 @@ class AuthController {
   async authenticate(request, response) {
     const { email, password } = request.body;
 
-    const [user] = await UserShema.find({
+    const [user] = await UserSchema.find({
       email: { $in: [email.toLowerCase()] },
     });
 
