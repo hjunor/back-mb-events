@@ -15,7 +15,7 @@ class EventController {
 
     const event = await EventShema.create({
       _id: uuid.v4(),
-      file,
+      file: `http://localhost:3333/uploads/${file}`,
       tickets,
       title,
       price,
@@ -125,4 +125,4 @@ class EventController {
   }
 }
 
-module.exports = new EventController()
+module.exports = new EventController();
