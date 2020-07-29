@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const URL = `mongodb://${process.env.USERS}:${process.env.PASSWORD}@localhost:27017/dev`;
+const URL = `mongodb://${process.env.USERS}:${process.env.PASSWORD}@localhost:27017/dev`
 
 const option = {
   useNewUrlParser: true,
@@ -10,5 +10,5 @@ const option = {
 };
 
 mongoose.connect(URL, option, (erro) => {
-  !erro ? console.log('connect', process.env.SECRET) : console.log(erro);
-});
+  !erro ? console.log('connect data base') : console.log(erro)
+})
