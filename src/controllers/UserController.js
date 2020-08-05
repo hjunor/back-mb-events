@@ -1,5 +1,7 @@
 const UserSchema = require('../models/User')
 const bcrypt = require('bcrypt')
+
+const validateEmail = require('../utils/validate')
 class UsersController {
 
   async index(request, response) {
@@ -13,11 +15,6 @@ class UsersController {
 
   async create(request, response) {
     const { name, email, password, admin } = request.body;
-
-    function validateEmail(email) {
-      const regex = /\S+@\S+\.\S+/;
-      return regex.test(String(email).toLowerCase());
-    }
 
     const result = validateEmail(email);
 
@@ -55,11 +52,6 @@ class UsersController {
   async update(request, response) {
     const { name, email, password } = request.body;
     const { id } = request.params;
-
-    function validateEmail(email) {
-      const regex = /\S+@\S+\.\S+/;
-      return regex.test(String(email).toLowerCase());
-    }
 
     const result = validateEmail(email);
 
