@@ -18,7 +18,6 @@ const option = {
 
 class MongoDB {
   constructor() {
-    //this._herois = null;
     this._driver = Mongoose.connection;
   }
   async isConnected() {
@@ -32,20 +31,6 @@ class MongoDB {
       !erro ? this.isConnected() : console.log(erro);
     });
   }
-
-  // async create(item) {
-  //   return this._herois.create(item);
-  // }
-  // async read(item = {}) {
-  //   return this._herois.find(item, { nome: 1, poder: 1, insertedAt: 1 });
-  // }
-  // async update(id, item) {
-  //   return this._herois.updateOne({ _id: id }, { $set: item });
-  // }
-
-  // async delete(id) {
-  //   return this._herois.deleteOne({ _id: id });
-  // }
 }
 
 module.exports = new MongoDB();
