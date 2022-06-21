@@ -1,18 +1,17 @@
 const UserSchema = require("../models/User");
 const bcrypt = require("bcrypt");
-
+const UserRepository = require("../repository/userRepository");
 const validateEmail = require("../utils/validate");
 class UsersController {
   async index(request, response) {
     try {
-      const users = await UserSchema.find();
-      const user = users.map((user) => {
-        return { id: user._id, name: user.name, email: user.email };
-      });
-
+      const id = request.id;
+      const user = await UserRepository.read(id);
       return response.json(user);
     } catch (error) {
-      return response.status(500).json({ error: "Erro ao buscar o usuário" });
+      return response.json({
+        message: "Usuario Exixtente na Base de dados",
+      });
     }
   }
 

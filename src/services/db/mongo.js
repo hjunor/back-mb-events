@@ -7,7 +7,7 @@ const STATUS = {
   3: "Disconectando",
 };
 
-const URL = `mongodb://dev:123456@localhost:27017/dev?authSource=admin`;
+const URL = process.env.URL;
 
 const option = {
   useNewUrlParser: true,
@@ -18,7 +18,6 @@ const option = {
 
 class MongoDB {
   constructor() {
-    //super();
     //this._herois = null;
     this._driver = Mongoose.connection;
   }
@@ -29,9 +28,8 @@ class MongoDB {
   }
 
   connect() {
-    Mongoose.connect(URL, option, function (error) {
-      if (!error) return;
-      console.log("Falha na conexão!");
+    Mongoose.connect(URL, option, (erro) => {
+      !erro ? this.isConnected() : console.log(erro);
     });
   }
 

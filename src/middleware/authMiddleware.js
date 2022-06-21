@@ -14,7 +14,7 @@ module.exports = async (request, response, next) => {
 
     const { id } = data;
 
-    request.userId = id;
+    request.id = id;
 
     return next();
   } catch (error) {
