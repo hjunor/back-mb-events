@@ -1,5 +1,5 @@
-require('dotenv').config();
-const JWT = require('jsonwebtoken');
+require("dotenv").config();
+const JWT = require("jsonwebtoken");
 module.exports = async (request, response, next) => {
   const { authorization } = request.headers;
 
@@ -7,7 +7,7 @@ module.exports = async (request, response, next) => {
     response.sendStatus(401);
   }
 
-  const token = authorization.replace('Bearer', ' ').trim();
+  const token = authorization.replace("Bearer", " ").trim();
 
   try {
     const data = await JWT.verify(token, process.env.SECRET);
