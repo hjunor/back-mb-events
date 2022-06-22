@@ -1,15 +1,11 @@
-require("dotenv");
-const UserSchema = require("../models/User");
 const bcrypt = require("bcrypt");
-const JWT = require("jsonwebtoken");
-
+const WebToken = require("../utils/jwt");
+const UserRepository = require("../repository/userRepository");
 class AuthController {
   async authenticate(request, response) {
     const { email, password } = request.body;
 
-    const [user] = await UserSchema.find({
-      email: { $in: [email.toLowerCase()] },
-    });
+    const user = await UserRepository.findEmail(email);
 
     if (!user) {
       return response.sendStatus(401);
@@ -21,9 +17,7 @@ class AuthController {
       return response.sendStatus(401);
     }
 
-    const token = JWT.sign({ id: user.id }, process.env.SECRET, {
-      expiresIn: "1d",
-    });
+    const token = WebToken.create(user.id);
 
     response.json({
       token,

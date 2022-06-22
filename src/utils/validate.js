@@ -1,4 +1,8 @@
-module.exports = function validateEmail(email) {
-  const regex = /\S+@\S+\.\S+/;
-  return regex.test(String(email).toLowerCase());
+class Validator {
+  email(email) {
+    const regex = /\S+@\S+\.\S+/;
+    return regex.test(String(email).toLowerCase());
+  }
 }
+
+module.exports = new Validator();

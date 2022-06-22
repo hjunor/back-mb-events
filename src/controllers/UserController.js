@@ -1,7 +1,6 @@
 const UserSchema = require("../models/User");
 const bcrypt = require("bcrypt");
 const UserRepository = require("../repository/userRepository");
-const validateEmail = require("../utils/validate");
 class UsersController {
   async index(request, response) {
     try {
@@ -17,34 +16,14 @@ class UsersController {
 
   async create(request, response) {
     const { name, email, password, admin } = request.body;
+    const { user, error, status } = await UserRepository.create({
+      name,
+      email,
+      password,
+      admin,
+    });
 
-    const result = validateEmail(email);
-
-    if (!result) {
-      return response.json({ error: "Email invalid" });
-    }
-
-    UserSchema.find({
-      email: { $in: [email.toLowerCase()] },
-    })
-      .then(async (user) => {
-        const newUser = await UserSchema.create({
-          name,
-          email,
-          password,
-          admin,
-        });
-        return response.json({
-          id: newUser.id,
-          email: newUser.email,
-          admin: newUser.admin,
-        });
-      })
-      .catch((error) => {
-        return response.json({
-          message: "Usuario Exixtente na Base de dados",
-        });
-      });
+    return response.status(status).json({ user, error });
   }
 
   async delete(request, response) {

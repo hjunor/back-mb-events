@@ -11,7 +11,6 @@ class MongoDB {
       useCreateIndex: true,
       useFindAndModify: false,
     };
-
     this._status = {
       0: "Disconectado",
       1: "Conectado",
