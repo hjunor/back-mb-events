@@ -3,29 +3,29 @@ const Mongoose = require("mongoose");
 
 class MongoDB {
   constructor() {
-    this._driver = Mongoose.connection;
-    this._url = process.env.URL;
-    this._option = {
+    this.url = process.env.URL;
+    this.option = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
     };
-    this._status = {
-      0: "Disconectado",
+    this.database = Mongoose;
+    this.status = {
+      0: "Desconectado",
       1: "Conectado",
       2: "Conectando",
-      3: "Disconectando",
+      3: "Desconectando",
     };
   }
   async isConnected() {
-    const state = this._status[Mongoose.connection.readyState];
+    const state = this.status[this.database.connection.readyState];
 
     console.log(state);
   }
 
   connect() {
-    Mongoose.connect(this._url, this._option, (erro) => {
+    this.database.connect(this.url, this.option, (erro) => {
       !erro ? this.isConnected() : console.log(erro);
     });
   }
